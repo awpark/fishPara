@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Consequences of parasite specificity: fish parasites in Mexico</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="spec_files/libs/clipboard/clipboard.min.js"></script>
+<script src="spec_files/libs/quarto-html/quarto.js"></script>
+<script src="spec_files/libs/quarto-html/popper.min.js"></script>
+<script src="spec_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="spec_files/libs/quarto-html/anchor.min.js"></script>
+<link href="spec_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="spec_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="spec_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="spec_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="spec_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Consequences of parasite specificity: fish parasites in Mexico</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This analysis uses the data from García-Prieto et al.&nbsp;(2022) to study consequences of parasite specificity.</p>
+<p>First, we read in the host-parasite data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"~/Dropbox/andrew/RCN/data/mexicanFish/FISH_PARASITE_DATASET.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we read in a fish phylogenetic tree</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">read.tree</span>(<span class="st">"~/Dropbox/andrew/RCN/data/mexicanFish/actinopt_12k_raxml.tre"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this analysis, we focus on adult stages of the parasites, and their associations with host species. <em>Q1: are there differences between larval-host associations? - i.e., are these hosts sometimes intermediate vs definitive hosts? I think I found 8 instances where the same host-parasite interaction was recorded for Adult and Larva parasite stages. Perhaps there could be separate ‘intermediate’ vs ‘definitive’ host case studies.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Stage=</span>stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(Stage,<span class="st">"Adulto"</span>,<span class="st">"Adult"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>f <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Stage<span class="sc">==</span><span class="st">"Adult"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove host or parasite taxa not identified to species</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>f <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"sp</span><span class="sc">\\</span><span class="st">."</span>,Host_species)<span class="sc">==</span>F)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>f <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"sp</span><span class="sc">\\</span><span class="st">."</span>,Parasite_species)<span class="sc">==</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We create a host-parasite matrix</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># matrix of host-(adult)parasite associations</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as.data.frame.matrix</span>(<span class="fu">table</span>(f<span class="sc">$</span>Parasite_species,f<span class="sc">$</span>Host_species))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are 57 fish species in this analysis where the Latin binomial in the host-parasite database doesn’t match to the fish phylogeny data. <em>Q2: Can someone help explore synonyms or confirm missing species from phylogeny?</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># probably a fish synonym issue, but for now remove host species not in fish phylo</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>missingFish <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">colnames</span>(m),tree<span class="sc">$</span>tip.label)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># for now we remove from host-parasite data those fish species that are not found in the phylogenetic tree</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>f <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>Host_species <span class="sc">%in%</span> missingFish)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#reCalc fParas now some species removed</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>fParas <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We calculate each parasite’s phylogenetic specificity</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#perform mpd analysis</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(picante)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>phydist <span class="ot">&lt;-</span> ape<span class="sc">::</span><span class="fu">cophenetic.phylo</span>(tree) </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#reduce phydist to host species in fish database</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">rownames</span>(phydist) <span class="sc">%in%</span> f<span class="sc">$</span>Host_species)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>phydist.mini <span class="ot">&lt;-</span> phydist[idx,idx]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#reduce HP association matrix to fish in phydist</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(m) <span class="sc">%in%</span> <span class="fu">colnames</span>(phydist.mini))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> m[,idx]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">rowSums</span>(m)<span class="sc">!=</span><span class="dv">0</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> m[idx,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> picante<span class="sc">::</span><span class="fu">ses.mpd</span>(m,phydist.mini,<span class="at">null.model=</span><span class="st">"independentswap"</span>,<span class="at">runs=</span><span class="dv">1000</span>,<span class="at">abundance.weighted=</span>F)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(z,<span class="at">file=</span><span class="st">"get_z.Rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We examine specificity as a function of parasite taxonomy</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"get_z.Rda"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>z <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Parasite_species=</span><span class="fu">rownames</span>(.))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>paraPhylum <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species,Phylum_parasite) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>z <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,paraPhylum)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#z %&gt;% ggplot(.,aes(x=Phylum_parasite,y=mpd.obs.z))+geom_boxplot()+xlab("Parasite phylum")+ylab("Parasite specificity")</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>z <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Phylum_parasite<span class="sc">==</span><span class="st">"Platyhelminthes"</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>mpd.obs.z)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">fill=</span><span class="st">"gray50"</span>,<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">"Phylogenetic specificity"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Density"</span>)<span class="sc">+</span><span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Platyhelminthes exhibit a wide range of phylogenetic specificity</span><span class="sc">\n</span><span class="st"> values &lt; -1.96 mean hosts statistically more related than expected by chance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spec_files/figure-html/specByParaTaxa-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We relate sites of infection (in/on host) to host evolutionary distinctiveness. The idea here is that if the host species is unrelated to the other hosts, this could be associated with atypical infection (i.e., maladaptive virulence)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fish parasites with at least 3 hosts (needed for concept of distinctiveness)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>h3 <span class="ot">&lt;-</span> z <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(ntaxa<span class="sc">&gt;</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Jaccard function</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>jaccard <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    intersection <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">intersect</span>(a, b))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    union <span class="ot">=</span> <span class="fu">length</span>(a) <span class="sc">+</span> <span class="fu">length</span>(b) <span class="sc">-</span> intersection</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span> (intersection<span class="sc">/</span>union)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe to store results</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Parasite_species=</span><span class="fu">character</span>(<span class="dv">0</span>),<span class="at">Host_species=</span><span class="fu">character</span>(<span class="dv">0</span>),<span class="at">Site_of_infection=</span><span class="fu">character</span>(<span class="dv">0</span>),<span class="at">ed=</span><span class="fu">numeric</span>(<span class="dv">0</span>),<span class="at">dj=</span><span class="fu">numeric</span>(<span class="dv">0</span>))</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phyloregion)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(h3)){<span class="co"># go through all relevant parasites (those with at least 3 host species)</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  f_ <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Parasite_species<span class="sc">==</span>h3[i]) <span class="co"># reduce full dataframe to only this parasite</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  f_ <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species,Host_species,Site_of_infection) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="co">#select only columns: host, parasite, site of infection</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  f_hosts <span class="ot">&lt;-</span> f_ <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Host_species) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()<span class="co"># identify all the hosts for this parasite</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  tree_ <span class="ot">&lt;-</span> <span class="fu">drop.tip</span>(tree,tree<span class="sc">$</span>tip.label[<span class="sc">-</span><span class="fu">match</span>(f_hosts, tree<span class="sc">$</span>tip.label)])<span class="co"># make a mini phylogenetic tree of only the hosts of target parasite</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  ed <span class="ot">&lt;-</span> phyloregion<span class="sc">::</span><span class="fu">evol_distinct</span>(tree_,<span class="at">type=</span><span class="st">"equal.splits"</span>,<span class="at">use.branch.lengths=</span>T)<span class="co"># get evolutionary distinctiveness of each host species</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  f_ <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,<span class="fu">data.frame</span>(ed,<span class="at">Host_species=</span><span class="fu">names</span>(ed)))<span class="co"># add evolutionary distinctiveness to reduced dataframe</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  f_ <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">dj=</span><span class="sc">-</span><span class="dv">999</span>) <span class="co"># create placeholder column to store jaccard distances for sites of infection</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(f_)[<span class="dv">1</span>]){<span class="co"># cycle through each host</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    a <span class="ot">&lt;-</span> f_ <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Host_species<span class="sc">==</span>f_<span class="sc">$</span>Host_species[j]) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Site_of_infection) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()<span class="co">#sites of infection for this host</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    b <span class="ot">&lt;-</span> f_ <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Host_species<span class="sc">!=</span>f_<span class="sc">$</span>Host_species[j]) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Site_of_infection) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()<span class="co">#sites of infection for all other hosts</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    f_<span class="sc">$</span>dj[j] <span class="ot">&lt;-</span> <span class="fu">jaccard</span>(a,b)<span class="co">#jaccard distance for sites of infection</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  s <span class="sc">%&lt;&gt;%</span> <span class="fu">bind_rows</span>(.,f_) <span class="co">#add this new case to dataframe "s"</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>z4merge <span class="ot">&lt;-</span> z <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species,mpd.obs.z)<span class="co">#prep specificity data to join to s</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>s <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,z4merge)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># plots</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>s <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,paraPhylum)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>s <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">sg=</span><span class="fu">if_else</span>(mpd.obs.z<span class="sc">&gt;</span>(<span class="sc">-</span><span class="fl">1.96</span>),<span class="st">"g"</span>,<span class="st">"s"</span>))</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>s <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">dj=</span><span class="fu">round</span>(dj,<span class="at">digits=</span><span class="dv">2</span>))</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>s <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Phylum_parasite<span class="sc">==</span><span class="st">"Platyhelminthes"</span> <span class="sc">&amp;</span> dj<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(dj),<span class="at">y=</span>ed))<span class="sc">+</span><span class="fu">geom_boxplot</span>()<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Host evolutionary distinctiveness"</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Jaccard's dissimilarity index for host site of infection"</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Evolutionarily distinct hosts are more likely</span><span class="sc">\n</span><span class="st">to have distinct sites of infection"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spec_files/figure-html/EDandSitesOfInfection-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Are the parasites of exotic fish species (that are also parasites of native fish species) a non-random sample?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first we reload the data and remove parasites only of the exotic species (fER=fishEnemyRelease)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fER <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"~/Dropbox/andrew/RCN/data/mexicanFish/FISH_PARASITE_DATASET.csv"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>exoParas <span class="ot">&lt;-</span> fER <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Exotic_or_native<span class="sc">==</span><span class="st">"Exotic"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>natParas <span class="ot">&lt;-</span> fER <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Exotic_or_native<span class="sc">==</span><span class="st">"Native"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Parasite_species) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>onlyExoParas <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(exoParas,natParas)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>fER <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>Parasite_species<span class="sc">%in%</span>onlyExoParas)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>natBoth <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Parasite_species=</span>exoParas,<span class="at">natBoth=</span><span class="st">"both"</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>natBoth2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Parasite_species=</span>natParas,<span class="at">natBoth=</span><span class="st">"nat"</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>natBoth <span class="sc">%&lt;&gt;%</span> <span class="fu">bind_rows</span>(.,natBoth2)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>doubleCounted <span class="ot">&lt;-</span> natBoth <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Parasite_species) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Parasite_species)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>forTheChop <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">dim</span>(natBoth)[<span class="dv">1</span>]){</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (natBoth<span class="sc">$</span>Parasite_species[i] <span class="sc">%in%</span> doubleCounted <span class="sc">&amp;</span> natBoth<span class="sc">$</span>natBoth[i]<span class="sc">==</span><span class="st">"nat"</span>){</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    forTheChop <span class="ot">&lt;-</span> <span class="fu">c</span>(forTheChop,i)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>natBoth <span class="sc">%&lt;&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span>forTheChop)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># need parasite specificity measured only in native species</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># note fER is not filtered to adult stage only (as f is)</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>fER2 <span class="ot">&lt;-</span> fER <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Exotic_or_native<span class="sc">==</span><span class="st">"Native"</span>)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>mNat <span class="ot">&lt;-</span> <span class="fu">as.data.frame.matrix</span>(<span class="fu">table</span>(fER2<span class="sc">$</span>Parasite_species,fER2<span class="sc">$</span>Host_species))</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#reduce phydist to host species in fish database</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">rownames</span>(phydist) <span class="sc">%in%</span> fER2<span class="sc">$</span>Host_species)</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>phydist.nat <span class="ot">&lt;-</span> phydist[idx,idx]</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co">#reduce HP association matrix to fish in phydist</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(mNat) <span class="sc">%in%</span> <span class="fu">colnames</span>(phydist.nat))</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>mNat <span class="ot">&lt;-</span> mNat[,idx]</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">rowSums</span>(mNat)<span class="sc">!=</span><span class="dv">0</span>)</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>mNat <span class="ot">&lt;-</span> mNat[idx,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>zNat <span class="ot">&lt;-</span> picante<span class="sc">::</span><span class="fu">ses.mpd</span>(mNat,phydist.nat,<span class="at">null.model=</span><span class="st">"independentswap"</span>,<span class="at">runs=</span><span class="dv">1000</span>,<span class="at">abundance.weighted=</span>F)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(zNat,<span class="at">file=</span><span class="st">"get_zNat.Rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"get_zNat.Rda"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>zNat <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">Parasite_species=</span><span class="fu">rownames</span>(.))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>zNat <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,paraPhylum)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>zNat <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,natBoth)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>zNat <span class="sc">%&lt;&gt;%</span> <span class="fu">drop_na</span>(Phylum_parasite,mpd.obs.z)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#zNat %&gt;% ggplot(.,aes(as.factor(natBoth),y=mpd.obs.z))+geom_boxplot()+facet_wrap(~Phylum_parasite)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#platyhelminthes</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>zNatPlat <span class="ot">&lt;-</span> zNat <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Phylum_parasite<span class="sc">==</span><span class="st">"Platyhelminthes"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>zNatPlat <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">sg=</span><span class="fu">if_else</span>(mpd.obs.z<span class="sc">&gt;</span>(<span class="sc">-</span><span class="fl">1.96</span>),<span class="st">"g"</span>,<span class="st">"s"</span>))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#zNatPlat %&gt;% ggplot(.,aes(as.factor(natBoth),y=mpd.obs.z))+geom_boxplot()+facet_wrap(~sg)</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">#zNatPlat %&gt;% ggplot(.,aes(as.factor(natBoth),y=ntaxa))+geom_boxplot()+facet_wrap(~sg)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> zNatPlat <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="fu">as.factor</span>(natBoth),<span class="at">y=</span>mpd.obs.z))<span class="sc">+</span><span class="fu">geom_boxplot</span>()<span class="sc">+</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>sg)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Extreme generalist (g) and specialist (s) platyhelminthes</span><span class="sc">\n</span><span class="st">are more likely to infect exotic hosts (nat=native only, both=native and exotic)"</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Type of host"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Parasite specificity"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co">#zNatPlat %&gt;% ggplot(.,aes(x=mpd.obs.z,fill=as.factor(natBoth)))+geom_density(alpha=0.3)</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#nematoda</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>zNatNem <span class="ot">&lt;-</span> zNat <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Phylum_parasite<span class="sc">==</span><span class="st">"Nematoda"</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>zNatNem <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">sg=</span><span class="fu">if_else</span>(mpd.obs.z<span class="sc">&gt;</span>(<span class="sc">-</span><span class="fl">1.96</span>),<span class="st">"g"</span>,<span class="st">"s"</span>))</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">#zNatNem %&gt;% ggplot(.,aes(as.factor(natBoth),y=mpd.obs.z))+geom_boxplot()+facet_wrap(~sg)</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">#zNatNem %&gt;% ggplot(.,aes(as.factor(natBoth),y=ntaxa))+geom_boxplot()+facet_wrap(~sg)</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> zNatNem <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="fu">as.factor</span>(natBoth),<span class="at">y=</span>mpd.obs.z))<span class="sc">+</span><span class="fu">geom_boxplot</span>()<span class="sc">+</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>sg)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Nematoda"</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Type of host"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Parasite specificity"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#zNatNem %&gt;% ggplot(.,aes(x=mpd.obs.z,fill=as.factor(natBoth)))+geom_density(alpha=0.3)</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>plot1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spec_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot1|plot2</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>exo4join <span class="ot">&lt;-</span> f <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Host_species,Exotic_or_native) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>exEdByZ <span class="ot">&lt;-</span> s <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Host_species,Parasite_species,ed) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>exEdByZ <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,exo4join)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>exEdByZ <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Exotic_or_native<span class="sc">==</span><span class="st">"Exotic"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>exEdByZ <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,paraPhylum)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>exEdByZ <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,z4merge)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#exEdByZ %&gt;% dplyr::filter(Phylum_parasite=="Platyhelminthes") %&gt;% ggplot(.,aes(x=ed,y=mpd.obs.z))+geom_point()+xlab("Exotic host evolutionary distinctiveness")+ylab("Parasite specificity")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> s <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(.,exo4join)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Host_species,Parasite_species,ed,mpd.obs.z,sg,Exotic_or_native)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> <span class="fu">left_join</span>(.,paraPhylum)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Phylum_parasite<span class="sc">==</span><span class="st">"Platyhelminthes"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> <span class="fu">mutate</span>(<span class="at">alphaLevel=</span><span class="fu">if_else</span>(Exotic_or_native<span class="sc">==</span><span class="st">"Exotic"</span>,<span class="dv">1</span>,<span class="fl">0.9</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>ed,<span class="at">y=</span>mpd.obs.z,<span class="at">col=</span>Exotic_or_native))<span class="sc">+</span><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">alpha=</span>alphaLevel))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Host evolutionary distinctiveness"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Parasite phylogenetic specificty"</span>)<span class="sc">+</span><span class="fu">guides</span>(<span class="at">alpha=</span><span class="st">"none"</span>)<span class="sc">+</span><span class="fu">scale_color_discrete</span>(<span class="at">name=</span><span class="st">"Host status"</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Parasites of hosts tend to be more generalist</span><span class="sc">\n</span><span class="st">as host evolutionary distinctiveness increases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spec_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ed,Exotic_or_native) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>Exotic_or_native,<span class="at">y=</span>ed))<span class="sc">+</span><span class="fu">geom_boxplot</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Host status"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Host evolutionary distinctivenes"</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Overall, exotic host species are not more</span><span class="sc">\n</span><span class="st">evolutionarily distinct than native species"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="spec_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,263 @@
+---
+title: "Consequences of parasite specificity: fish parasites in Mexico"
+format: html
+editor: visual
+---
+
+This analysis uses the data from García-Prieto et al. (2022) to study consequences of parasite specificity.
+
+```{r loadLibs}
+library(magrittr)
+library(tidyverse)
+```
+
+We read in the host-parasite data
+
+```{r readData}
+f <- read_csv("~/Dropbox/andrew/RCN/data/mexicanFish/FISH_PARASITE_DATASET.csv")
+```
+
+We read in a fish phylogenetic tree
+
+```{r readFishPhylo}
+library(ape)
+tree <- ape::read.tree("~/Dropbox/andrew/RCN/data/mexicanFish/actinopt_12k_raxml.tre")
+
+```
+
+In this analysis, we focus on adult stages of the parasites, and their associations with host species. *Q1: are there differences between larval-host associations? - i.e., are these hosts sometimes intermediate vs definitive hosts?*
+
+```{r filterAdult}
+f %<>% mutate(Stage=stringr::str_replace_all(Stage,"Adulto","Adult"))
+f %<>% dplyr::filter(Stage=="Adult")
+# remove host or parasite taxa not identified to species
+f %<>% dplyr::filter(grepl("sp\\.",Host_species)==F)
+f %<>% dplyr::filter(grepl("sp\\.",Parasite_species)==F)
+```
+
+We create a host-parasite matrix
+
+```{r createHPmatrix}
+# matrix of host-(adult)parasite associations
+m <- as.data.frame.matrix(table(f$Parasite_species,f$Host_species))
+```
+
+We obtain an estimate of parasite geographic area before removing any parasites *Q2: Does the lat/long coordinate data use the WGS84 datum?*
+
+```{r calcParaAreas, eval=F}
+library(GeoRange)
+fParas <- f %>% dplyr::select(Parasite_species) %>% distinct() %>% pull()
+area <- tibble(Parasite_species=character(0),Area=numeric(0),nObs=numeric(0))
+for (i in 1:length(fParas)){
+  lons <- f %>% dplyr::filter(Parasite_species==fParas[i]) %>% select(Longitude) %>% pull()
+  lats <- f %>% dplyr::filter(Parasite_species==fParas[i]) %>% select(Latitude) %>% pull()
+  GeoRange::CHullAreaEarth(lons,lats)
+  area %<>% add_case(Parasite_species=fParas[i],Area=GeoRange::CHullAreaEarth(lons,lats),nObs=length(lons))
+}
+```
+
+```{r loadParaAreas}
+load("get_paraAreas.Rda")
+```
+
+There are 57 fish species in this analysis where the Latin binomial in the host-parasite database doesn't match to the fish phylogeny data. *Q3: Can someone help explore synonyms or confirm missing species from phylogeny?*
+
+```{r}
+# probably a fish synonym issue, but for now remove host species not in fish phylo
+missingFish <- setdiff(colnames(m),tree$tip.label)
+
+# for now we remove from host-parasite data those fish species that are not found in the phylogenetic tree
+f %<>% dplyr::filter(!Host_species %in% missingFish)
+#reCalc fParas now some species removed
+fParas <- f %>% dplyr::select(Parasite_species) %>% distinct() %>% pull()
+```
+
+We calculate each parasite's phylogenetic specificity
+
+```{r calcSpec}
+
+#perform mpd analysis
+library(picante)
+phydist <- ape::cophenetic.phylo(tree) 
+
+#reduce phydist to host species in fish database
+idx <- which(rownames(phydist) %in% f$Host_species)
+phydist.mini <- phydist[idx,idx]
+
+#reduce HP association matrix to fish in phydist
+idx <- which(colnames(m) %in% colnames(phydist.mini))
+m <- m[,idx]
+idx <- which(rowSums(m)!=0)
+m <- m[idx,]
+```
+
+```{r eval=FALSE}
+z <- picante::ses.mpd(m,phydist.mini,null.model="independentswap",runs=1000,abundance.weighted=F)
+save(z,file="get_z.Rda")
+```
+
+We examine specificity as a function of parasite taxonomy
+
+```{r specByParaTaxa}
+load("get_z.Rda")
+z %<>% mutate(Parasite_species=rownames(.))
+paraPhylum <- f %>% dplyr::select(Parasite_species,Phylum_parasite) %>% distinct()
+
+z %<>% left_join(.,paraPhylum)
+
+z %>% ggplot(.,aes(x=Phylum_parasite,y=mpd.obs.z))+geom_boxplot()
+
+```
+
+We relate sites of infection (in/on host) to host evolutionary distinctiveness. The idea here is that if the host species is unrelated to the other hosts, this could be associated with atypical infection (i.e., maladaptive virulence)
+
+```{r EDandSitesOfInfection}
+#fish parasites with at least 3 hosts (needed for concept of distinctiveness)
+h3 <- z %>% dplyr::filter(ntaxa>2) %>% dplyr::select(Parasite_species) %>% distinct() %>% pull()
+
+
+#Jaccard function
+jaccard <- function(a, b) {
+    intersection = length(intersect(a, b))
+    union = length(a) + length(b) - intersection
+    return (intersection/union)
+}
+
+# dataframe to store results
+s <- tibble(Parasite_species=character(0),Host_species=character(0),Site_of_infection=character(0),ed=numeric(0),dj=numeric(0))
+library(phyloregion)
+for (i in 1:length(h3)){# go through all relevant parasites (those with at least 3 host species)
+  f_ <- f %>% dplyr::filter(Parasite_species==h3[i]) # reduce full dataframe to only this parasite
+  f_ %<>% dplyr::select(Parasite_species,Host_species,Site_of_infection) %>% distinct() #select only columns: host, parasite, site of infection
+  f_hosts <- f_ %>% dplyr::select(Host_species) %>% distinct() %>% pull()# identify all the hosts for this parasite
+  tree_ <- drop.tip(tree,tree$tip.label[-match(f_hosts, tree$tip.label)])# make a mini phylogenetic tree of only the hosts of target parasite
+  ed <- phyloregion::evol_distinct(tree_,type="equal.splits",use.branch.lengths=T)# get evolutionary distinctiveness of each host species
+  f_ %<>% left_join(.,data.frame(ed,Host_species=names(ed)))# add evolutionary distinctiveness to reduced dataframe
+  f_ %<>% mutate(dj=-999) # create placeholder column to store jaccard distances for sites of infection
+  for (j in 1:dim(f_)[1]){# cycle through each host
+    a <- f_ %>% dplyr::filter(Host_species==f_$Host_species[j]) %>% dplyr::select(Site_of_infection) %>% distinct() %>% pull()#sites of infection for this host
+    b <- f_ %>% dplyr::filter(Host_species!=f_$Host_species[j]) %>% dplyr::select(Site_of_infection) %>% distinct() %>% pull()#sites of infection for all other hosts
+    f_$dj[j] <- jaccard(a,b)#jaccard distance for sites of infection
+  }
+  s %<>% bind_rows(.,f_) #add this new case to dataframe "s"
+}
+
+z4merge <- z %>% dplyr::select(Parasite_species,mpd.obs.z)#prep specificity data to join to s
+s %<>% left_join(.,z4merge)
+
+#some plots
+s %>% ggplot(.,aes(x=ed,y=dj))+geom_jitter(height=0.05,aes(col=mpd.obs.z))+scale_colour_gradient2(midpoint=-2)#+geom_smooth(method="lm")
+s %>% ggplot(.,aes(x=mpd.obs.z,y=dj))+geom_point()
+s %>% ggplot(.,aes(x=as.factor(dj),y=mpd.obs.z))+geom_boxplot()
+
+s %<>% left_join(.,paraPhylum)
+s %>% ggplot(.,aes(x=as.factor(dj),y=mpd.obs.z))+geom_boxplot()+facet_wrap(~Phylum_parasite)
+s %>% ggplot(.,aes(x=ed,y=dj))+geom_jitter(height=0.05,aes(col=mpd.obs.z))+scale_colour_gradient2(midpoint=-2)+facet_wrap(~Phylum_parasite)#+geom_smooth(method="lm")
+
+s %<>% mutate(sg=if_else(mpd.obs.z>(-1.96),"g","s"))
+s %>% dplyr::filter(Phylum_parasite=="Platyhelminthes") %>% ggplot(.,aes(x=as.factor(dj),y=ed))+geom_boxplot()+facet_wrap(~sg)
+```
+
+Are the parasites of exotic fish species (that are also parasites of native fish species) a non-random sample?
+
+```{r}
+# first we reload the data and remove parasites only of the exotic species (fER=fishEnemyRelease)
+fER <- read_csv("~/Dropbox/andrew/RCN/data/mexicanFish/FISH_PARASITE_DATASET.csv")
+
+exoParas <- fER %>% dplyr::filter(Exotic_or_native=="Exotic") %>% dplyr::select(Parasite_species) %>% distinct() %>% pull()
+natParas <- fER %>% dplyr::filter(Exotic_or_native=="Native") %>% dplyr::select(Parasite_species) %>% distinct() %>% pull()
+
+onlyExoParas <- setdiff(exoParas,natParas)
+
+
+fER %<>% dplyr::filter(!Parasite_species%in%onlyExoParas)
+
+
+natBoth <- tibble(Parasite_species=exoParas,natBoth="both")
+natBoth2 <- tibble(Parasite_species=natParas,natBoth="nat")
+natBoth %<>% bind_rows(.,natBoth2)
+
+doubleCounted <- natBoth %>% group_by(Parasite_species) %>% summarize(n=n()) %>% dplyr::filter(n>1) %>% pull(Parasite_species)
+forTheChop <- NULL
+for (i in 1:dim(natBoth)[1]){
+  if (natBoth$Parasite_species[i] %in% doubleCounted & natBoth$natBoth[i]=="nat"){
+    forTheChop <- c(forTheChop,i)
+  }
+}
+
+natBoth %<>% slice(-forTheChop)
+
+# need parasite specificity measured only in native species
+# note fER is not filtered to adult stage only (as f is)
+
+fER2 <- fER %>% dplyr::filter(Exotic_or_native=="Native")
+mNat <- as.data.frame.matrix(table(fER2$Parasite_species,fER2$Host_species))
+
+
+
+#reduce phydist to host species in fish database
+idx <- which(rownames(phydist) %in% fER2$Host_species)
+phydist.nat <- phydist[idx,idx]
+
+#reduce HP association matrix to fish in phydist
+idx <- which(colnames(mNat) %in% colnames(phydist.nat))
+mNat <- mNat[,idx]
+idx <- which(rowSums(mNat)!=0)
+mNat <- mNat[idx,]
+```
+
+```{r eval=FALSE}
+zNat <- picante::ses.mpd(mNat,phydist.nat,null.model="independentswap",runs=1000,abundance.weighted=F)
+save(zNat,file="get_zNat.Rda")
+```
+
+```{r}
+load("get_zNat.Rda")
+zNat %<>% mutate(Parasite_species=rownames(.))
+zNat %<>% left_join(.,paraPhylum)
+zNat %<>% left_join(.,natBoth)
+zNat %<>% drop_na(Phylum_parasite,mpd.obs.z)
+zNat %>% ggplot(.,aes(as.factor(natBoth),y=mpd.obs.z))+geom_boxplot()+facet_wrap(~Phylum_parasite)
+
+zNatPlat <- zNat %>% dplyr::filter(Phylum_parasite=="Platyhelminthes")
+
+zNatPlat %<>% mutate(sg=if_else(mpd.obs.z>(-1.96),"g","s"))
+zNatPlat %>% ggplot(.,aes(as.factor(natBoth),y=mpd.obs.z))+geom_boxplot()+facet_wrap(~sg)
+zNatPlat %>% ggplot(.,aes(as.factor(natBoth),y=ntaxa))+geom_boxplot()+facet_wrap(~sg)
+
+
+zNatPlat %>% ggplot(.,aes(x=mpd.obs.z,fill=as.factor(natBoth)))+geom_density(alpha=0.3)
+
+exo4join <- f %>% dplyr::select(Host_species,Exotic_or_native) %>% distinct()
+
+exEdByZ <- s %>% dplyr::select(Host_species,Parasite_species,ed) %>% distinct()
+exEdByZ %<>% left_join(.,exo4join)
+exEdByZ %<>% dplyr::filter(Exotic_or_native=="Exotic")
+exEdByZ %<>% left_join(.,z4merge)
+exEdByZ %>% ggplot(.,aes(x=ed,y=mpd.obs.z))+geom_point()
+
+```
+
+Are generalist parasites more geographically dispersed?
+
+```{r}
+area %<>% left_join(.,z4merge)
+area %>% ggplot(.,aes(x=mpd.obs.z,y=Area))+geom_point()
+area %>% ggplot(.,aes(x=nObs,y=Area))+geom_point()
+area2 <- area %>% drop_na(mpd.obs.z) %>% dplyr::filter(Area>0)
+summary(lm(log(Area)~nObs+mpd.obs.z,data=area2))
+area2 %>% ggplot(.,aes(x=mpd.obs.z,y=Area))+geom_point(aes(size=nObs))+geom_smooth(method="lm",se=F)+scale_y_log10()
+```
+
+parasites acquired by exotic hosts: random or not?
+
+```{r}
+
+x <- s %>% left_join(.,exo4join)
+x %<>% dplyr::select(Host_species,Parasite_species,ed,mpd.obs.z,sg,Exotic_or_native)
+
+x %>% ggplot(.,aes(x=ed,y=mpd.obs.z,col=Exotic_or_native))+geom_point()
+x %>% dplyr::select(ed,Exotic_or_native) %>% distinct() %>% ggplot(.,aes(x=Exotic_or_native,y=ed))+geom_boxplot()
+
+
+```
