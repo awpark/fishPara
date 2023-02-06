@@ -1,13 +1,13 @@
 ---
 title: "Consequences of parasite specificity: fish parasites in Mexico"
-format: html
+format: pdf
 editor: source
 ---
 
 ```{r}
 #| label: "setup"
 #| include: false
-knitr::opts_chunk$set(echo=T,message=F,warning=F)
+knitr::opts_chunk$set(echo=T,message=F,warning=F,tidy=T)
 library(tidyverse)
 library(magrittr)
 ```
@@ -50,6 +50,20 @@ There are 57 fish species in this analysis where the Latin binomial in the host-
 ```{r}
 # probably a fish synonym issue, but for now remove host species not in fish phylo
 missingFish <- setdiff(colnames(m),tree$tip.label)
+missingFishFormatted <- gsub("_"," ",missingFish)
+library(rfishbase)
+synCheck <- rfishbase::synonyms(missingFishFormatted)
+synCheck %<>% dplyr::filter(Status %in% c("misapplied name","synonym")) %>% dplyr::select(synonym,Species)
+synCheck %<>% dplyr::mutate(across(.cols=everything(),~str_replace_all(.," ","_")))
+
+idx.1 <- which(f$Host_species==synCheck$synonym[1])
+idx.2 <- which(f$Host_species==synCheck$synonym[2])
+
+f$Host_species[idx.1] <- synCheck$Species[1]
+#f$Host_species[idx.2] <- synCheck$Species[2]# we don't run this line because even the synonym isn't in the tree
+
+# recalculate matrix of host-(adult)parasite associations
+m <- as.data.frame.matrix(table(f$Parasite_species,f$Host_species))
 
 # for now we remove from host-parasite data those fish species that are not found in the phylogenetic tree
 f %<>% dplyr::filter(!Host_species %in% missingFish)
